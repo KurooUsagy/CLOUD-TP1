@@ -1,21 +1,24 @@
 const express = require('express');
-const app = express();
-const router = express.Router();
+const controllers = require('./api');
+const config = require('./config/config');
 
-router.get('/', (req, res) => {
-  res.send('success');
-});
-
-app.use(router);
-
-app.listen(3000, err => {
-  if (err) {
-    process.exit(1);
-    return;
+async function startServer() {
+    const app = express();
+    
+    await require('./loaders')(app);
+  
+    app.listen(config.port, err => {
+      if (err) {
+        Logger.error(err);
+        process.exit(1);
+        return;
+      }
+      console.log(`
+        ################################################
+        🛡️  Server listening on port: ${config.port} 🛡️ 
+        ################################################
+      `);
+    });
   }
-  console.log(`
-    ################################################
-    🛡️  Server listening on port: 3000 🛡️ 
-    ################################################
-  `);
-});
+  
+  startServer();
