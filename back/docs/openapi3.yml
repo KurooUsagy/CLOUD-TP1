@@ -2,7 +2,7 @@ openapi: 3.0.0
 # Added by API Auto Mocking Plugin
 servers:
   - description: localhost
-    url: http://localhost:3000/api/v1
+    url: http://localhost:3002/api
 info:
   description: Cloud TP1
   version: "1.0.0"
@@ -16,7 +16,7 @@ tags:
   - name: books
     description: API pour mes bouquins
 paths:
-  /inventory:
+  /book:
     get:
       tags:
         - books
@@ -32,14 +32,46 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+    post:
+      tags:
+        - books
+      summary: Crée un livres
+      operationId: createBook
+      description: Crée un livre
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookForCreate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
 components:
-  schemas:
-    Book:
+  schemas:  
+    BookForCreate:
       type: object
       required:
-        - id
         - title
         - description
+      properties:
+        title:
+          type: string
+          example: Lord of the ring
+        description:
+          type: string
+          example: Somebody lost his rings
+    Book:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/BookForCreate'
+      required:
+        - id
         - createdAt
         - updatedAt
       properties:
@@ -47,12 +79,6 @@ components:
           type: string
           format: id
           example: 42
-        title:
-          type: string
-          example: Lord of the ring
-        description:
-          type: string
-          example: Somebody lost his rings
         createdAt:
           type: string
           format: date-time

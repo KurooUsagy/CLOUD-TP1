@@ -6,6 +6,13 @@
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"42Crunch.vscode-openapi"
+			]
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

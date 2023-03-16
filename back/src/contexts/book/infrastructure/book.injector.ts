@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { BookRepository, RelationalDatabase } from "../../../infrastructure/database"
-import { GetBooksUseCase } from "../use-cases"
+import { GetBooksUseCase, PostBooksUseCase } from "../use-cases"
 import { bookRoutes } from "./book.routes"
 import { BookController } from "./controller"
 
@@ -12,9 +12,11 @@ export const bookInjector = (externalDependencies: BookExternalDependencies): Ro
     const bookRepository = new BookRepository(externalDependencies.database)
 
     const getBooksUseCase = new GetBooksUseCase(bookRepository)
-
+    const postBookUseCase = new PostBooksUseCase(bookRepository)
+    
     const bookController = new BookController(
-        getBooksUseCase
+        getBooksUseCase,
+        postBookUseCase
     )
 
     return bookRoutes(bookController)
