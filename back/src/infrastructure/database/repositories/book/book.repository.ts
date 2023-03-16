@@ -12,8 +12,12 @@ export class BookRepository implements IBookRepository {
         return books.map(toBookRaw);
     }
 
+    async getBook(id: Book['id']): Promise<Book | null> {
+        const res = await this.database.client.book.findUnique({where: {id}})
+        return res
+    }
+
     async createBook(book: Book): Promise<Book> {
-        console.log(book)
         const data = {data: book}
         const res = await this.database.client.book.create(data);
         return res

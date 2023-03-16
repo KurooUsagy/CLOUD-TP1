@@ -52,6 +52,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+  /book/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the book to get
+      tags:
+        - books
+      summary: récupère un livre
+      operationId: searchOne
+      description: récupère un livre
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookForCreate'
+        '404':
+          description: Not found
 components:
   schemas:  
     BookForCreate:
