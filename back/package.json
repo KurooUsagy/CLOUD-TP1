@@ -4,7 +4,7 @@
   "description": "Cloud-TP1",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon -e js,ts -x ts-node index.ts",
+    "serve": "nodemon -e js,ts -x ts-node src/main.ts",
     "build": "tsc --build tsconfig.build.json",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
