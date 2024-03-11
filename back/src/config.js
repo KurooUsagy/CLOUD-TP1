@@ -1,7 +1,7 @@
-import convict from 'convict'
-import convictValidator from 'convict-format-with-validator'
-import { config as dotEnvConfig } from 'dotenv'
-import { join } from 'path'
+const convict = require('convict');
+const convictValidator = require('convict-format-with-validator');
+const { config: dotEnvConfig } = require('dotenv');
+const { join } = require('path');
 
 const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'local'
 
@@ -43,6 +43,6 @@ const conf = convict({
     allowed: 'strict'
 })
 
-export const config = conf.get()
+const config = conf.get()
 
-export type Config = typeof config
+module.exports = { config }
